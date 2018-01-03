@@ -217,6 +217,8 @@ func TestServer_BackupAndRestore(t *testing.T) {
 		t.Fatalf("query results wrong:\n\texp: %s\n\tgot: %s", partialExpected, res)
 	}
 
+	// wait for the import to finish, and unlock the shard engine.
+	time.Sleep(time.Second * 3)
 	res, err = s.Query(`select * from "mydb"."forever"."myseries"`)
 	if err != nil {
 		t.Fatalf("error querying: %s", err.Error())
